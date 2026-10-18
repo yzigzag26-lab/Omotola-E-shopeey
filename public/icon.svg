@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Corazon Empire">
+  <rect width="64" height="64" fill="#14110f"/>
+  <path d="M32 49C21 41 13 34.5 13 26.5 13 20.7 17.4 16 23 16c3.7 0 7 2 9 5.2C34 18 37.3 16 41 16c5.6 0 10 4.7 10 10.5C51 34.5 43 41 32 49Z" fill="none" stroke="#b3925b" stroke-width="2.5"/>
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#6b1f2f" stroke-width="1.5" opacity=".8"/>
+</svg>

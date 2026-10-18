@@ -1,0 +1,365 @@
+{
+  "currency": "NGN",
+  "notice": "Demo catalogue. Prices are illustrative and fully editable in the admin dashboard.",
+  "categories": [
+    {
+      "id": "c0000000-0000-4000-8000-000000000001",
+      "slug": "room-decor",
+      "name": "Room Decor",
+      "description": "Sculptural accents that bring warmth, texture and quiet character to a room.",
+      "display_order": 1,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000002",
+      "slug": "unisex-wears",
+      "name": "Unisex Wears",
+      "description": "Relaxed, considered essentials cut for everyone — soft fabric, clean lines, no noise.",
+      "display_order": 2,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000003",
+      "slug": "tattoo-stickers",
+      "name": "Tattoo Stickers",
+      "description": "Fine-line temporary tattoos for an effortless, expressive finish.",
+      "display_order": 3,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000004",
+      "slug": "waist-beads",
+      "name": "Waist Beads",
+      "description": "Hand-strung beadwork in burgundy, champagne and ivory — made to be worn, gifted and kept.",
+      "display_order": 4,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000005",
+      "slug": "kitchen-utensils",
+      "name": "Kitchen Utensils",
+      "description": "Everyday tools with a considered silhouette — designed to look as good as they work.",
+      "display_order": 5,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000006",
+      "slug": "footwear",
+      "name": "Footwear",
+      "description": "Comfort-first slides and sandals with a polished, understated finish.",
+      "display_order": 6,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000007",
+      "slug": "bags",
+      "name": "Bags",
+      "description": "Structured shoulder bags and carryalls in rich, wearable tones.",
+      "display_order": 7,
+      "is_active": true
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000008",
+      "slug": "jewelry",
+      "name": "Jewelry",
+      "description": "Gold-tone and beaded pieces designed for layering, everyday and occasion.",
+      "display_order": 8,
+      "is_active": true
+    }
+  ],
+  "products": [
+    {
+      "id": "d0000000-0000-4000-8000-000000000001",
+      "slug": "aurelia-decorative-vase",
+      "name": "Aurelia Decorative Vase",
+      "category_id": "c0000000-0000-4000-8000-000000000001",
+      "price_kobo": 1850000,
+      "description": "A sculptural ceramic vase with a softly fluted body and a matte ivory glaze. The Aurelia is designed to hold its own on a console or shelf, and looks just as considered empty as it does with a single stem. Each piece is finished by hand, so subtle variation in tone and texture is expected and part of its character.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": true,
+      "seo_title": "Aurelia Decorative Vase — Fluted Ivory Ceramic",
+      "seo_description": "A fluted ceramic decorative vase in warm matte ivory. A sculptural accent for consoles, shelves and sideboards.",
+      "variants": [],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000001",
+          "role": "front",
+          "file": "aurelia-decorative-vase-front",
+          "alt": "Aurelia Decorative Vase in matte ivory, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000002",
+          "role": "back",
+          "file": "aurelia-decorative-vase-back",
+          "alt": "Aurelia Decorative Vase in matte ivory, back view"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000002",
+      "slug": "essential-oversized-t-shirt",
+      "name": "Essential Oversized T-Shirt",
+      "category_id": "c0000000-0000-4000-8000-000000000002",
+      "price_kobo": 1200000,
+      "description": "The everyday tee, refined. A heavyweight cotton jersey with a boxy, oversized cut, dropped shoulders and a clean hem. The Ecru colourway is garment-dyed for a soft, lived-in hand from the first wear. Style it loose over denim or tuck it into tailoring.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": true,
+      "seo_title": "Essential Oversized T-Shirt — Ecru Heavyweight Cotton",
+      "seo_description": "A heavyweight cotton oversized t-shirt in soft ecru with dropped shoulders and a relaxed, boxy fit.",
+      "variants": [
+        {
+          "kind": "Size",
+          "value": "S"
+        },
+        {
+          "kind": "Size",
+          "value": "M"
+        },
+        {
+          "kind": "Size",
+          "value": "L"
+        },
+        {
+          "kind": "Size",
+          "value": "XL"
+        }
+      ],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000003",
+          "role": "front",
+          "file": "essential-oversized-t-shirt-front",
+          "alt": "Essential Oversized T-Shirt in ecru, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000004",
+          "role": "back",
+          "file": "essential-oversized-t-shirt-back",
+          "alt": "Essential Oversized T-Shirt in ecru, back view"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000003",
+      "slug": "minimalist-tattoo-sticker-set",
+      "name": "Minimalist Tattoo Sticker Set",
+      "category_id": "c0000000-0000-4000-8000-000000000003",
+      "price_kobo": 350000,
+      "description": "A curated sheet of fine-line temporary tattoos — botanical stems, small geometric marks and delicate script-free linework. Each design is easy to apply with water and typically lasts a few days on skin. A low-commitment way to try a placement before you commit.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": false,
+      "seo_title": "Minimalist Tattoo Sticker Set — Fine-Line Temporary Tattoos",
+      "seo_description": "A sheet of fine-line minimalist temporary tattoos in black ink. Easy to apply and remove.",
+      "variants": [],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000005",
+          "role": "front",
+          "file": "minimalist-tattoo-sticker-set-front",
+          "alt": "Minimalist tattoo sticker sheet, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000006",
+          "role": "additional",
+          "file": "minimalist-tattoo-sticker-set-detail",
+          "alt": "Minimalist Tattoo Sticker Set, close detail of the material and finish"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000004",
+      "slug": "signature-waist-bead-set",
+      "name": "Signature Waist Bead Set",
+      "category_id": "c0000000-0000-4000-8000-000000000004",
+      "price_kobo": 500000,
+      "description": "A hand-strung strand of small polished glass beads in burgundy, champagne gold and ivory, finished with a fine gold-tone clasp and adjustable chain. Wear it alone or layer with one of our other strands. Strung to order, so allow a little time before dispatch.",
+      "availability": "made_to_order",
+      "status": "published",
+      "is_featured": true,
+      "seo_title": "Signature Waist Bead Set — Burgundy & Champagne",
+      "seo_description": "Hand-strung waist beads in burgundy, champagne gold and ivory with an adjustable gold-tone closure.",
+      "variants": [
+        {
+          "kind": "Length",
+          "value": "30 in"
+        },
+        {
+          "kind": "Length",
+          "value": "34 in"
+        },
+        {
+          "kind": "Length",
+          "value": "38 in"
+        }
+      ],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000007",
+          "role": "front",
+          "file": "signature-waist-bead-set-front",
+          "alt": "Signature waist bead strand in burgundy and gold, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000008",
+          "role": "additional",
+          "file": "signature-waist-bead-set-detail",
+          "alt": "Signature Waist Bead Set, close detail of the material and finish"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000005",
+      "slug": "modern-kitchen-utensil-set",
+      "name": "Modern Kitchen Utensil Set",
+      "category_id": "c0000000-0000-4000-8000-000000000005",
+      "price_kobo": 1500000,
+      "description": "A four-piece cooking set — ladle, slotted turner, serving spoon and whisk — with matte black heads and balanced handles. Heat-resistant and comfortable to hold, with a silhouette clean enough to leave on the counter. Hand wash to preserve the finish.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": false,
+      "seo_title": "Modern Kitchen Utensil Set — Matte Black, 4 Pieces",
+      "seo_description": "A modern four-piece kitchen utensil set with matte black heads and balanced handles.",
+      "variants": [],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000009",
+          "role": "front",
+          "file": "modern-kitchen-utensil-set-front",
+          "alt": "Modern kitchen utensil set in matte black, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000010",
+          "role": "additional",
+          "file": "modern-kitchen-utensil-set-detail",
+          "alt": "Modern Kitchen Utensil Set, close detail of the material and finish"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000006",
+      "slug": "everyday-comfort-slides",
+      "name": "Everyday Comfort Slides",
+      "category_id": "c0000000-0000-4000-8000-000000000006",
+      "price_kobo": 1650000,
+      "description": "A padded slide in soft sand beige, built for the days that do not slow down. The wide strap is lined for comfort and the sole has just enough grip for everyday wear. Water-resistant and easy to wipe clean.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": true,
+      "seo_title": "Everyday Comfort Slides — Sand Beige Padded Slides",
+      "seo_description": "Padded everyday slides in sand beige with a comfortable wide strap and grippy sole.",
+      "variants": [
+        {
+          "kind": "Size",
+          "value": "38"
+        },
+        {
+          "kind": "Size",
+          "value": "39"
+        },
+        {
+          "kind": "Size",
+          "value": "40"
+        },
+        {
+          "kind": "Size",
+          "value": "41"
+        },
+        {
+          "kind": "Size",
+          "value": "42"
+        },
+        {
+          "kind": "Size",
+          "value": "43"
+        }
+      ],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000011",
+          "role": "front",
+          "file": "everyday-comfort-slides-front",
+          "alt": "Everyday comfort slides in sand beige, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000012",
+          "role": "additional",
+          "file": "everyday-comfort-slides-detail",
+          "alt": "Everyday Comfort Slides, close detail of the material and finish"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000007",
+      "slug": "everyday-luxe-shoulder-bag",
+      "name": "Everyday Luxe Shoulder Bag",
+      "category_id": "c0000000-0000-4000-8000-000000000007",
+      "price_kobo": 2200000,
+      "description": "A structured shoulder bag in deep burgundy with a slim champagne gold-tone clasp and a short strap that sits neatly under the arm. Lined interior with a single slip pocket — room for a phone, cardholder, keys and a small pouch. A considered everyday bag that dresses up as easily as it dresses down.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": true,
+      "seo_title": "Everyday Luxe Shoulder Bag — Burgundy Structured Bag",
+      "seo_description": "A structured burgundy shoulder bag with a champagne gold-tone clasp and a compact, elegant silhouette.",
+      "variants": [],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000013",
+          "role": "front",
+          "file": "everyday-luxe-shoulder-bag-front",
+          "alt": "Everyday Luxe shoulder bag in burgundy, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000014",
+          "role": "additional",
+          "file": "everyday-luxe-shoulder-bag-detail",
+          "alt": "Everyday Luxe Shoulder Bag, close detail of the material and finish"
+        }
+      ]
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000008",
+      "slug": "classic-gold-tone-jewelry-set",
+      "name": "Classic Gold-Tone Jewelry Set",
+      "category_id": "c0000000-0000-4000-8000-000000000008",
+      "price_kobo": 850000,
+      "description": "A fine gold-tone chain necklace with matching small hoop earrings. Lightweight enough for all-day wear and simple enough to layer with pieces you already own. Keep away from perfume and water, and store in the pouch provided.",
+      "availability": "available",
+      "status": "published",
+      "is_featured": false,
+      "seo_title": "Classic Gold-Tone Jewelry Set — Necklace & Hoops",
+      "seo_description": "A classic gold-tone jewellery set with a fine chain necklace and matching small hoop earrings.",
+      "variants": [],
+      "images": [
+        {
+          "id": "e0000000-0000-4000-8000-000000000015",
+          "role": "front",
+          "file": "classic-gold-tone-jewelry-set-front",
+          "alt": "Classic gold-tone jewellery set, front view"
+        },
+        {
+          "id": "e0000000-0000-4000-8000-000000000016",
+          "role": "additional",
+          "file": "classic-gold-tone-jewelry-set-detail",
+          "alt": "Classic Gold-Tone Jewelry Set, close detail of the material and finish"
+        }
+      ]
+    }
+  ],
+  "announcement": {
+    "id": "a0000000-0000-4000-8000-000000000001",
+    "message": "Welcome to Corazon Empire — curated pieces for the wardrobe and the home. Confirm availability and delivery on WhatsApp or by email.",
+    "is_enabled": true
+  },
+  "store_settings": {
+    "store_name": "Corazon Empire",
+    "support_email": "omojuli001@gmail.com",
+    "whatsapp_number": "2348071334513",
+    "currency": "NGN",
+    "instagram_url": null,
+    "tiktok_url": null,
+    "tagline": "Considered pieces for the wardrobe, the home and the everyday ritual."
+  }
+}
