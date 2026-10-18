@@ -64,8 +64,9 @@ cp .env.example .env.local      # fill in Supabase URL + publishable key
 npm run hooks:install           # block commits that contain credentials
 npm run doctor                  # offline check of your env vars and the catalogue
 
-# 3. Apply the database schema (see docs/SETUP.md for both CLI and SQL Editor paths)
-#    supabase/migrations/*.sql  — run in filename order
+# 3. Apply the database schema — three ways, see docs/SETUP.md
+#    supabase/setup.sql          — one paste into the Supabase SQL Editor (no tooling needed)
+#    npx supabase db push        — or apply supabase/migrations/*.sql in filename order
 
 # 4. Seed the demo catalogue (uses the service-role key)
 NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npm run seed
@@ -97,6 +98,7 @@ Image behaviour: **[docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)**.
 | `npm run hooks:install` | Enable the pre-commit credential scan |
 | `npm run seed` | Idempotent demo catalogue seed (service role) |
 | `npm run seed:sql` | Regenerate the SQL seed files from `demo-catalog.json` |
+| `npm run setup:sql` | Regenerate `supabase/setup.sql` from the migrations and the seed |
 | `npm run upload-images` | Upload demo photography to Supabase Storage and repoint records |
 | `npm run provision-admin` | Create/update the admin account and allow-list entry |
 | `npm run verify:db` | Read-only production sanity check |
@@ -129,6 +131,7 @@ src/
     supabase/           # Browser/server/service-role clients + DB types
     validation/         # Zod schemas
 supabase/
+  setup.sql             # generated: every migration + seed + admin grant + verification
   migrations/           # 4 ordered SQL migrations
   seed/demo-catalog.json# Single source of truth for the demo catalogue
 scripts/                # Seed, upload, provisioning, verification, image pipeline
