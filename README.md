@@ -61,6 +61,8 @@ npm install
 # 2. Configure
 cp .env.example .env.local      # fill in Supabase URL + publishable key
 #   optional: RESEND_API_KEY / ORDER_EMAIL_FROM for email ordering
+npm run hooks:install           # block commits that contain credentials
+npm run doctor                  # offline check of your env vars and the catalogue
 
 # 3. Apply the database schema (see docs/SETUP.md for both CLI and SQL Editor paths)
 #    supabase/migrations/*.sql  — run in filename order
@@ -87,8 +89,12 @@ Image behaviour: **[docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)**.
 | `npm run dev` | Development server on `0.0.0.0:3000` |
 | `npm run build` / `npm start` | Production build and server |
 | `npm run lint` | ESLint (Next core-web-vitals + TypeScript) |
+| `npm run lint:secrets` | Fail if a credential-like value appears in a tracked file |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm test` | Vitest suite |
+| `npm run verify` | Secret scan + typecheck + lint + tests + build (also runs in CI) |
+| `npm run doctor` | Offline configuration check: env vars, catalogue and image assets |
+| `npm run hooks:install` | Enable the pre-commit credential scan |
 | `npm run seed` | Idempotent demo catalogue seed (service role) |
 | `npm run seed:sql` | Regenerate the SQL seed files from `demo-catalog.json` |
 | `npm run upload-images` | Upload demo photography to Supabase Storage and repoint records |
@@ -145,10 +151,16 @@ tests/                  # Vitest suites
 
 ### Known environment limitation
 
-The sandbox used to build this repository had **no outbound network access to Supabase** (only GitHub
-and npm). Therefore Storage uploads, Auth email delivery and live browser end-to-end tests could not be
-executed from here. The schema, RLS policies, seed data, admin account and order RPC **were** applied and
-verified through the Supabase management connection. See the delivery report for exact status.
+The sandbox used to build this repository has **no outbound network access to Supabase or Resend** — only
+`github.com`, `api.github.com`, `registry.npmjs.org` and `files.pythonhosted.org` are reachable. DNS for
+`*.supabase.co` does not resolve there at all, so no key changes that: anything touching the database,
+storage, auth or email has **not** been executed end to end from the build environment, and no claim is
+made that the schema, seed data or admin account were applied remotely.
+
+Everything that can be checked offline **was** checked: typecheck, lint, the test suite, the production
+build, the order API's validation/rate-limit/misconfiguration responses, the admin redirect gate, and the
+bundled catalogue. Run `npm run verify` to repeat it, and `npm run verify:db` with your service-role key
+to confirm the live project. `docs/DELIVERY_REPORT.md` keeps the two lists strictly separate.
 
 ## Demo catalogue
 

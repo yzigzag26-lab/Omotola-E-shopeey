@@ -1,0 +1,10 @@
+#!/bin/sh
+# Blocks commits that contain credentials. Enable with: npm run hooks:install
+set -e
+
+if ! node scripts/check-secrets.mjs --staged; then
+  echo ""
+  echo "Commit blocked. See docs/SETUP.md — secrets belong in the hosting"
+  echo "platform's environment variables or a gitignored .env.local."
+  exit 1
+fi
