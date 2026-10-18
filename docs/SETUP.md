@@ -93,12 +93,22 @@ ADMIN_INITIAL_PASSWORD='choose-a-strong-unique-password' \
 npm run provision-admin
 ```
 
+Or have a compliant password generated and printed once in your own terminal (never stored anywhere):
+
+```bash
+ADMIN_INITIAL_PASSWORD=--generate npm run provision-admin
+```
+
+The script enforces the policy before contacting Supabase: 12+ characters with an upper-case letter, a
+lower-case letter, a digit and a symbol, no spaces, no character repeated four times, no keyboard or
+alphabet runs, and not a commonly used password. It lists every unmet requirement and exits without
+creating anything.
+
 This creates a confirmed user with `app_metadata.role = "admin"` and inserts the `admin_users` allow-list
 row. Both checks are used by `is_admin()`.
 
-The initial password requested for this project was set during provisioning. **Change it immediately**
-via `/admin → Forgot password`. A short password such as the requested initial value is not suitable for
-production.
+**Change the password immediately** via `/admin → Forgot password`, even if it was generated: an initial
+password that has been typed into a shell or a chat is not secret.
 
 ## 6. Email ordering (optional)
 
@@ -133,23 +143,46 @@ If mail does not arrive: check SMTP settings, the Supabase Auth logs, spam, and 
 ```bash
 cp .env.example .env.local
 npm install
-npm run dev        # http://localhost:3000
+npm run hooks:install   # one-time: block commits containing credentials
+npm run doctor          # one-time: confirm your env vars and catalogue read correctly
+npm run dev             # http://localhost:3000
 ```
+
+`npm run doctor` makes **no network calls**. It checks the Node version, whether each variable is set and
+correctly shaped, whether a service-role key has been placed in a `NEXT_PUBLIC_` variable (a hard
+failure — it would be inlined into the browser bundle), key expiry, whether email ordering is enabled,
+whether any `.env` file is tracked by git, and that the demo catalogue matches the 32 image files in
+`public/products`. It prints lengths and JWT role claims, never secret values.
 
 Useful checks:
 
 ```bash
 npm run lint
+npm run lint:secrets   # fail if a credential appears in a tracked file
 npm run typecheck
 npm test
 npm run build
+npm run verify         # all of the above, in order — also runs in CI
 ```
+
+### Handling secrets
+
+Credentials belong in exactly two places: your shell (for the one-time scripts) and your hosting
+platform's environment variables. Never in a committed file.
+
+- `.env` and `.env.*` are gitignored; only the `.env.example` template is tracked.
+- `npm run lint:secrets` scans tracked files for service-role JWTs, Resend keys, AWS keys, GitHub tokens,
+  private-key blocks and assigned credential literals. It reports file and line only, so running it
+  cannot leak what it finds. The pre-commit hook runs it on staged files.
+- If a key is ever committed or pasted into a chat or ticket, treat it as compromised: rotate it in the
+  Supabase dashboard or Resend, and remove it from history. Rotating is the only real fix.
 
 ## 9. Troubleshooting
 
 | Symptom | Cause / fix |
 | --- | --- |
 | “Supabase is not configured” | Missing `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
+| Ordering returns `503 STORE_NOT_CONFIGURED` | Same cause: the public Supabase variables are absent in the deployed environment. Distinct from a crash so a bad deploy is not mistaken for a code fault |
 | Products page empty | Migration 3/4 not applied, or seed not run |
 | Images show “Image coming soon” | Asset missing in `public/products` (run `scripts/process-images.mjs`) |
 | Admin login: “Incorrect password” | Wrong password, unknown account, or user not confirmed — all intentionally identical |

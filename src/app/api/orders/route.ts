@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { orderRequestSchema } from "@/lib/validation/order";
 import { submitOrder, OrderError } from "@/lib/orders/submit";
+import { ConfigurationError } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -69,6 +70,20 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof OrderError) {
       return NextResponse.json({ ok: false, code: error.code, message: error.message }, { status: error.status });
+    }
+    // A missing Supabase configuration is operator misconfiguration, not an
+    // unexpected failure. Reporting it as 500 UNEXPECTED hides the real cause
+    // and makes a bad deploy indistinguishable from a code fault.
+    if (error instanceof ConfigurationError) {
+      console.error("[api/orders] store not configured:", error.message);
+      return NextResponse.json(
+        {
+          ok: false,
+          code: "STORE_NOT_CONFIGURED",
+          message: "Ordering is temporarily unavailable while the store finishes its setup. Your cart has been kept.",
+        },
+        { status: 503 },
+      );
     }
     console.error("[api/orders] unexpected failure", error instanceof Error ? error.name : "unknown");
     return NextResponse.json(
