@@ -29,7 +29,7 @@ grants.
 | `npm run lint` | 0 problems |
 | `npm run build` | success |
 | `npm test` | 8 files, 33 tests passing |
-| Live pages (dev server) | `/`, `/shop`, `/product/*`, `/category/*`, `/cart`, `/about`, `/contact`, `/privacy`, `/terms` → 200; unknown path → 404 |
+| Live pages (dev + production build) | `/`, `/shop`, `/product/*`, `/category/*`, `/cart`, `/about`, `/contact`, `/privacy`, `/terms` → 200; unknown path **and** unknown product/category slugs → 404 |
 | Admin gate | `/admin/products`, `/admin/orders` → 307 to `/admin` when anonymous |
 | Order API | invalid payload → 422; email channel without provider → 503 `EMAIL_NOT_CONFIGURED`; unreachable DB → 502, no fake success |
 | RLS: anonymous | 8 published products visible, draft hidden, `orders` unreadable and not writable |
@@ -41,6 +41,11 @@ grants.
 
 The QA order and the draft test product used for these checks were deleted afterwards; the live project
 holds no synthetic orders.
+
+Loading skeletons are scoped to `/shop`, `/cart` and `/admin` rather than the app root. A root-level
+`loading.tsx` creates a Suspense boundary above the dynamic product and category routes, which flushes a
+`200` before `notFound()` runs — verified by rebuilding with and without it. Scoping them keeps streaming
+skeletons where they help and preserves real `404` status codes for missing slugs.
 
 ## Demo imagery
 
