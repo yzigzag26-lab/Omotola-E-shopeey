@@ -1,0 +1,34 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# production
+/build
+
+# environment & secrets — NEVER commit real credentials
+.env
+.env.*
+!.env.example
+!.env.test.example
+
+# logs & caches
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*
+/coverage
+.vitest
+.DS_Store
+
+# generated image staging (raw generations are optimised into public/products)
+/public/products/_raw/
+
+# supabase local CLI
+/supabase/.branches
+/supabase/.temp
