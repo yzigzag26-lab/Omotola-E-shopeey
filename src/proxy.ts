@@ -5,8 +5,11 @@ import { createServerClient } from "@supabase/ssr";
  * Refreshes Supabase auth cookies and performs a cheap gate on admin sub-routes.
  * Real authorization happens server-side in every page/action via is_admin();
  * this only avoids rendering admin chrome for clearly anonymous visitors.
+ *
+ * This file used to be `src/middleware.ts`. Next.js 16 renamed the convention to
+ * "proxy" and deprecates the old filename, so the export is `proxy` now.
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

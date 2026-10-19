@@ -1,6 +1,8 @@
 # Deployment
 
-The project targets Vercel (any Node 20+ host that supports Next.js 16 works).
+The project targets Vercel (any Node 22 host that supports Next.js 16 works). `package.json` pins
+`engines.node` to `22.x` and `.nvmrc` to `22`, which is what Vercel reads to choose its build image;
+a floating range would silently jump to a new major when one ships.
 
 ## 1. Prerequisites
 

@@ -32,14 +32,43 @@ npx supabase db push
 Paste each file into the SQL Editor and run them in order. All files are idempotent (`if not exists`,
 `drop policy if exists`), so re-running is safe.
 
-Verify:
+**Option C — one paste, no local tooling**
+
+`supabase/setup.sql` is those four migrations plus the demo seed, the administrator grant and the
+verification queries in a single file. Paste the whole thing into the SQL Editor and press Run.
+
+```
+https://raw.githubusercontent.com/yzigzag26-lab/Omotola-E-shopeey/main/supabase/setup.sql
+```
+
+(or open the file in the repository). It is generated, never hand-edited:
+
+```bash
+npm run setup:sql   # rebuilds supabase/setup.sql from the migrations and the seed
+```
+
+Two tests keep it honest: `tests/setup-sql.test.ts` fails if the committed file and its sources
+disagree, and `tests/setup-sql-postgres.test.ts` applies it to a real PostgreSQL 17 with a
+Supabase-shaped `auth`/`storage` schema, then asserts the resulting counts, privileges and
+`is_admin()` behaviour. Both run in CI.
+
+The file's **STEP 2** block writes the administrator allow-list row for
+`omojuli001@gmail.com`. If that auth user does not exist yet, the block raises a notice and
+leaves everything else applied; create the user in **Authentication → Users → Add user** and run
+the STEP 2 block again. **STEP 3** is a read-only verification you can run at any time.
+
+Verify (this is STEP 3 of `supabase/setup.sql`, so Option C already ran it):
 
 ```sql
 select count(*) from public.products;       -- 8 after seeding
 select count(*) from public.orders;         -- 0
 select * from storage.buckets;              -- product-images, public = true
 select tablename, rowsecurity from pg_tables where schemaname = 'public';
+select has_table_privilege('anon', 'public.orders', 'select');  -- false
 ```
+
+Expected after seeding: 8 categories, 8 products, 16 image records, 13 variants, one enabled
+announcement, one `store_settings` row, and (once provisioned) one `admin_users` row.
 
 ## 3. Seed the demo catalogue
 
