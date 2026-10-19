@@ -42,7 +42,7 @@ arithmetic on money.
 
 | Layer | Choice |
 | --- | --- |
-| Framework | Next.js 16 (App Router, Server Actions, Proxy/middleware) |
+| Framework | Next.js 16 (App Router, Server Actions, proxy) |
 | Language | TypeScript, `strict` + `noUncheckedIndexedAccess` |
 | Styling | Tailwind CSS v4 with brand tokens in `src/app/globals.css` |
 | Database | Supabase Postgres 17, SQL migrations, RLS |

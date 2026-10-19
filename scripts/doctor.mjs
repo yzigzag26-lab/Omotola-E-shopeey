@@ -56,9 +56,11 @@ function jwtClaims(token) {
 }
 
 function checkNode() {
+  // package.json pins "22.x": Vercel reads it to choose the build image, and a
+  // floating ">=x" range would silently jump to a new major when one ships.
   const major = Number(process.versions.node.split(".")[0]);
-  if (major >= 20) ok("node version", `v${process.versions.node}`);
-  else fail("node version", `v${process.versions.node} — >=20.9.0 required`);
+  if (major === 22) ok("node version", `v${process.versions.node}`);
+  else warn("node version", `v${process.versions.node} — package.json pins 22.x; local runs on another major are not what Vercel builds`);
 }
 
 function checkEnv() {
