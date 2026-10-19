@@ -166,7 +166,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
     const { receipt } = success;
     return (
       <section aria-live="polite" className="mx-auto max-w-2xl">
-        <div className="border border-line bg-white p-6 md:p-10">
+        <div className="rounded-blob border border-line bg-white p-6 shadow-soft md:p-10">
           <p className="eyebrow">{success.channel === "email" ? "Order request recorded" : "Order request prepared"}</p>
           <h2 className="mt-3 font-display text-3xl">Thank you — nearly there.</h2>
           <p className="mt-4 text-sm leading-relaxed text-ink-soft">
@@ -176,7 +176,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
           </p>
 
           {success.channel === "whatsapp" ? (
-            <div className="mt-5 border border-gold/40 bg-ivory px-4 py-3 text-sm text-ink-soft">
+            <div className="mt-5 rounded-2xl border border-gold/40 bg-ivory px-4 py-3 text-sm text-ink-soft">
               A WhatsApp window should have opened with your order details. Press <strong>send</strong> in
               WhatsApp to deliver the message. If it did not open, use the link below.
               {success.whatsappUrl ? (
@@ -186,7 +186,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
               ) : null}
             </div>
           ) : (
-            <div className="mt-5 border border-line bg-ivory px-4 py-3 text-sm text-ink-soft">
+            <div className="mt-5 rounded-2xl border border-line bg-ivory px-4 py-3 text-sm text-ink-soft">
               {success.emailSent
                 ? "The order notification was accepted by our email provider. That confirms dispatch to the provider, not guaranteed inbox delivery. The seller will reply to confirm."
                 : "Your order is saved, but the email notification could not be confirmed. Please also send the order via WhatsApp so the seller sees it promptly."}
@@ -252,7 +252,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
 
   if (cartEmpty) {
     return (
-      <div className="border border-line bg-white px-6 py-16 text-center">
+      <div className="rounded-blob border border-dashed border-sand bg-white px-6 py-16 text-center">
         <p className="eyebrow">Your bag</p>
         <h2 className="mt-3 font-display text-2xl">Your bag is empty</h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-muted">
@@ -266,10 +266,10 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_24rem] lg:items-start">
       <section aria-label="Bag items">
-        <ul className="divide-y divide-line border-y border-line">
+        <ul className="space-y-3">
           {lines.map((line) => (
-            <li key={`${line.productId}-${line.variant ?? ""}`} className="grid grid-cols-[5.5rem_1fr] gap-4 py-5 sm:grid-cols-[7rem_1fr]">
-              <Link href={`/product/${line.slug}`} className="block border border-line bg-ivory-deep">
+            <li key={`${line.productId}-${line.variant ?? ""}`} className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-card border border-line bg-white p-3 sm:grid-cols-[7rem_1fr] sm:p-4">
+              <Link href={`/product/${line.slug}`} className="block overflow-hidden rounded-2xl bg-ivory-deep">
                 <ProductImage src={line.image} alt={line.name} sizes="7rem" />
               </Link>
               <div className="min-w-0">
@@ -290,7 +290,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
                 </div>
 
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center border border-line bg-white">
+                  <div className="flex items-center overflow-hidden rounded-full border border-line bg-white">
                     <button
                       type="button"
                       onClick={() => updateQuantity(line.productId, line.variant, line.quantity - 1)}
@@ -299,7 +299,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
                     >
                       −
                     </button>
-                    <span className="w-9 border-x border-line text-center text-sm tabular-nums">{line.quantity}</span>
+                    <span className="w-9 text-center text-sm font-semibold tabular-nums">{line.quantity}</span>
                     <button
                       type="button"
                       onClick={() => updateQuantity(line.productId, line.variant, line.quantity + 1)}
@@ -341,7 +341,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
         </p>
       </section>
 
-      <aside className="border border-line bg-white p-5 md:p-6">
+      <aside className="rounded-blob border border-line bg-white p-5 shadow-soft md:p-7 lg:sticky lg:top-24">
         <h2 className="font-display text-xl">Order summary</h2>
         <div className="mt-4 space-y-2 border-b border-line pb-4 text-sm">
           {payableLines.map((line) => (
@@ -371,7 +371,7 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
             ).map((option) => (
               <label
                 key={option.value}
-                className={`flex cursor-pointer items-center justify-center border px-3 py-2.5 text-xs uppercase tracking-[0.14em] ${
+                className={`flex cursor-pointer items-center justify-center rounded-full border px-3 py-2.5 text-[13px] font-semibold transition-colors ${
                   channel === option.value ? "border-ink bg-ink text-ivory" : "border-line text-ink-soft hover:border-ink"
                 }`}
               >
@@ -425,13 +425,13 @@ export function CartView({ catalog }: { catalog: CatalogEntry[] }) {
           </div>
 
           {hasUnavailable ? (
-            <p className="border border-line bg-ivory px-3 py-2 text-xs text-muted">
+            <p className="rounded-2xl border border-line bg-ivory px-3 py-2 text-xs text-muted">
               Unavailable items are excluded from this order. Remove them from your bag to avoid confusion.
             </p>
           ) : null}
 
           {error ? (
-            <p role="alert" className="border border-danger/30 bg-danger/5 px-3 py-2 text-sm text-danger">{error}</p>
+            <p role="alert" className="rounded-2xl border border-danger/30 bg-danger/5 px-3 py-2 text-sm text-danger">{error}</p>
           ) : null}
 
           <button type="submit" className="btn btn-burgundy w-full" disabled={submitting || payableLines.length === 0}>

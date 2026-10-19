@@ -39,21 +39,21 @@ export function ShopFilters({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 rounded-card border border-line bg-white p-5">
       <form onSubmit={submit} role="search" className="space-y-2">
         <label htmlFor="shop-search" className="label">
           Search
         </label>
-        <div className="flex">
+        <div className="flex rounded-full border border-line bg-ivory p-1 focus-within:border-burgundy">
           <input
             id="shop-search"
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Vase, bag, beads…"
-            className="field rounded-r-none border-r-0"
+            className="field min-h-10 rounded-full border-0 bg-transparent px-3 focus:shadow-none"
           />
-          <button type="submit" className="btn btn-primary min-h-11 shrink-0 rounded-l-none px-4">
+          <button type="submit" className="btn btn-primary min-h-10 shrink-0 px-4">
             Go
           </button>
         </div>
@@ -61,9 +61,9 @@ export function ShopFilters({
 
       <nav aria-label="Categories" className="space-y-2">
         <p className="label">Category</p>
-        <ul className="space-y-1.5 text-sm">
+        <ul className="flex flex-wrap gap-1.5 text-sm">
           <li>
-            <Link href={hrefForCategory()} className={!activeCategory ? "text-burgundy" : "text-ink-soft hover:text-burgundy"}>
+            <Link href={hrefForCategory()} className={`chip px-3 py-1.5 text-[12px] ${!activeCategory ? "chip-active" : ""}`}>
               All pieces
             </Link>
           </li>
@@ -72,7 +72,7 @@ export function ShopFilters({
               <Link
                 href={hrefForCategory(category.slug)}
                 aria-current={activeCategory === category.slug ? "page" : undefined}
-                className={activeCategory === category.slug ? "text-burgundy" : "text-ink-soft hover:text-burgundy"}
+                className="chip px-3 py-1.5 text-[12px]"
               >
                 {category.name}
               </Link>
@@ -83,13 +83,14 @@ export function ShopFilters({
 
       <div className="space-y-2">
         <p className="label">Collections</p>
-        <Link href={hrefForCategory(undefined, true)} className="text-sm text-ink-soft hover:text-burgundy">
-          Featured pieces
-        </Link>
-        <br />
-        <Link href={hrefForCategory()} className="text-sm text-ink-soft hover:text-burgundy">
-          Clear filters
-        </Link>
+        <div className="flex flex-wrap gap-1.5">
+          <Link href={hrefForCategory(undefined, true)} className="chip px-3 py-1.5 text-[12px]">
+            ✦ Featured pieces
+          </Link>
+          <Link href={hrefForCategory()} className="chip px-3 py-1.5 text-[12px]">
+            Clear filters
+          </Link>
+        </div>
       </div>
     </div>
   );

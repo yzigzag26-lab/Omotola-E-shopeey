@@ -63,7 +63,7 @@ export default async function ProductPage({ params }: { params: Params }) {
 
   return (
     <div className="shell py-10 md:py-14">
-      <nav aria-label="Breadcrumb" className="mb-6 text-[10px] uppercase tracking-[0.18em] text-muted">
+      <nav aria-label="Breadcrumb" className="mb-6 inline-flex flex-wrap items-center gap-1 rounded-full border border-line bg-white px-4 py-1.5 text-[12px] font-semibold text-muted">
         <Link href="/" className="hover:text-burgundy">Home</Link>
         <span aria-hidden="true"> / </span>
         <Link href="/shop" className="hover:text-burgundy">Shop</Link>
@@ -78,9 +78,11 @@ export default async function ProductPage({ params }: { params: Params }) {
       <ProductDetail product={product} />
 
       {related.length > 0 ? (
-        <section className="mt-20 border-t border-line pt-12" aria-labelledby="related-heading">
+        <section className="mt-20 rounded-blob border border-line bg-ivory-deep p-5 md:p-10" aria-labelledby="related-heading">
           <p className="eyebrow">More from {product.category?.name ?? "the collection"}</p>
-          <h2 id="related-heading" className="mt-3 font-display text-2xl md:text-3xl">You may also like</h2>
+          <h2 id="related-heading" className="mt-4 font-display text-3xl md:text-4xl">
+            You may also <span className="accent text-burgundy">like</span>
+          </h2>
           <div className="mt-8">
             <ProductGrid products={related} />
           </div>

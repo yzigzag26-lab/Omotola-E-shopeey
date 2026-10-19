@@ -31,7 +31,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
 
   return (
     <div className="shell py-12 md:py-16">
-      <nav aria-label="Breadcrumb" className="text-[10px] uppercase tracking-[0.18em] text-muted">
+      <nav aria-label="Breadcrumb" className="inline-flex flex-wrap items-center gap-1 rounded-full border border-line bg-white px-4 py-1.5 text-[12px] font-semibold text-muted">
         <Link href="/" className="hover:text-burgundy">Home</Link>
         <span aria-hidden="true"> / </span>
         <Link href="/shop" className="hover:text-burgundy">Shop</Link>
@@ -41,7 +41,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
 
       <header className="mt-6 max-w-2xl">
         <p className="eyebrow">Category</p>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl">{category.name}</h1>
+        <h1 className="mt-4 font-display text-5xl md:text-6xl">{category.name}</h1>
         {category.description ? (
           <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">{category.description}</p>
         ) : null}
@@ -53,9 +53,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
             key={item.id}
             href={`/category/${item.slug}`}
             aria-current={item.id === category.id ? "page" : undefined}
-            className={`border px-3 py-1.5 text-[11px] uppercase tracking-[0.14em] ${
-              item.id === category.id ? "border-ink bg-ink text-ivory" : "border-line text-ink-soft hover:border-ink"
-            }`}
+            className="chip"
           >
             {item.name}
           </Link>

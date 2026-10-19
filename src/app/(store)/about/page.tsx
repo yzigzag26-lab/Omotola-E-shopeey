@@ -12,16 +12,18 @@ export default function AboutPage() {
   return (
     <div className="shell py-14 md:py-20">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
-        <header>
+        <header className="lg:sticky lg:top-24 lg:self-start">
           <p className="eyebrow">The house</p>
-          <h1 className="mt-4 font-display text-4xl leading-tight md:text-5xl">A quieter kind of luxury.</h1>
+          <h1 className="mt-4 font-display text-5xl leading-[1.02] md:text-6xl">
+            A quieter kind of <span className="accent text-burgundy">luxury.</span>
+          </h1>
           <p className="mt-6 text-sm leading-relaxed text-muted">
             Corazon Empire is a Lagos-based house of fashion, accessories and home objects — built
             around the idea that a small, well-chosen collection is worth more than a crowded one.
           </p>
         </header>
 
-        <div className="prose-luxe max-w-none">
+        <div className="prose-luxe max-w-none rounded-blob border border-line bg-white p-6 shadow-soft md:p-10">
           <p>
             We started with eight small worlds: room decor, unisex wears, tattoo stickers, waist
             beads, kitchen utensils, footwear, bags and jewelry. Each exists because we wanted the

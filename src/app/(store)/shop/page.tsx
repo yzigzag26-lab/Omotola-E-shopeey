@@ -73,7 +73,9 @@ export default async function ShopPage({ searchParams }: { searchParams: SearchP
     <div className="shell py-12 md:py-16">
       <header className="max-w-2xl">
         <p className="eyebrow">The collection</p>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl">Shop</h1>
+        <h1 className="mt-4 font-display text-5xl md:text-6xl">
+          Shop <span className="accent text-burgundy">it all.</span>
+        </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
           Every published piece, in one place. Availability is confirmed by the seller when you
           order — nothing is reserved automatically.
@@ -81,18 +83,18 @@ export default async function ShopPage({ searchParams }: { searchParams: SearchP
       </header>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[16rem_1fr]">
-        <aside aria-label="Filters">
+        <aside aria-label="Filters" className="lg:sticky lg:top-24 lg:self-start">
           <ShopFilters categories={categories} initialQuery={params.q ?? ""} activeCategory={categorySlug} />
         </aside>
 
         <section aria-label="Products">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
-            <p className="text-xs uppercase tracking-[0.16em] text-muted" role="status">
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-full border border-line bg-white py-2 pl-5 pr-2">
+            <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted" role="status">
               {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
               {category ? ` in ${category.name}` : ""}
             </p>
-            <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.14em]">
-              <span className="text-muted">Sort</span>
+            <div className="flex flex-wrap items-center gap-1.5 text-[12px] font-semibold">
+              <span className="px-1 text-muted">Sort</span>
               {(
                 [
                   { key: "newest", label: "Newest" },
@@ -104,7 +106,7 @@ export default async function ShopPage({ searchParams }: { searchParams: SearchP
                   key={option.key}
                   href={buildHref({ sort: option.key, page: 1 })}
                   aria-current={sort === option.key ? "true" : undefined}
-                  className={`border px-2.5 py-1 ${
+                  className={`rounded-full border px-3 py-1.5 transition-colors ${
                     sort === option.key ? "border-ink bg-ink text-ivory" : "border-line text-ink-soft hover:border-ink"
                   }`}
                 >
@@ -132,24 +134,24 @@ export default async function ShopPage({ searchParams }: { searchParams: SearchP
           </div>
 
           {totalPages > 1 ? (
-            <nav aria-label="Pagination" className="mt-12 flex items-center justify-between border-t border-line pt-6">
+            <nav aria-label="Pagination" className="mt-12 flex items-center justify-between rounded-full border border-line bg-white p-1.5">
               <Link
                 href={buildHref({ page: currentPage - 1 })}
                 aria-disabled={currentPage === 1}
-                className={`text-[11px] uppercase tracking-[0.16em] ${
-                  currentPage === 1 ? "pointer-events-none text-muted/50" : "text-burgundy underline underline-offset-4"
+                className={`rounded-full px-4 py-2 text-[13px] font-semibold ${
+                  currentPage === 1 ? "pointer-events-none text-muted/50" : "bg-ink text-ivory hover:bg-burgundy"
                 }`}
               >
                 Previous
               </Link>
-              <span className="text-[11px] uppercase tracking-[0.16em] text-muted">
+              <span className="text-[12px] font-semibold text-muted">
                 Page {currentPage} of {totalPages}
               </span>
               <Link
                 href={buildHref({ page: currentPage + 1 })}
                 aria-disabled={currentPage === totalPages}
-                className={`text-[11px] uppercase tracking-[0.16em] ${
-                  currentPage === totalPages ? "pointer-events-none text-muted/50" : "text-burgundy underline underline-offset-4"
+                className={`rounded-full px-4 py-2 text-[13px] font-semibold ${
+                  currentPage === totalPages ? "pointer-events-none text-muted/50" : "bg-ink text-ivory hover:bg-burgundy"
                 }`}
               >
                 Next

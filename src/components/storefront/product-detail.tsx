@@ -79,8 +79,8 @@ export function ProductDetail({ product }: Props) {
   return (
     <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
       <div>
-        <div className="border border-line bg-ivory-deep">
-          <div className="group relative">
+        <div className="overflow-hidden rounded-blob border border-line bg-white p-2.5">
+          <div className="group relative overflow-hidden rounded-[1.5rem] bg-ivory-deep">
             <ProductImage
               src={activeImage?.image_url}
               thumbSrc={null}
@@ -94,18 +94,18 @@ export function ProductDetail({ product }: Props) {
                 <button
                   type="button"
                   onClick={() => setActiveIndex((index) => (index - 1 + images.length) % images.length)}
-                  className="flex h-9 w-9 items-center justify-center border border-line bg-white/90 text-ink backdrop-blur transition-colors hover:bg-ink hover:text-ivory"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white/90 text-ink backdrop-blur transition-colors hover:bg-ink hover:text-ivory"
                   aria-label="Previous image"
                 >
                   ‹
                 </button>
-                <span className="bg-white/85 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+                <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-ink-soft">
                   {activeIndex + 1} / {images.length}
                 </span>
                 <button
                   type="button"
                   onClick={() => setActiveIndex((index) => (index + 1) % images.length)}
-                  className="flex h-9 w-9 items-center justify-center border border-line bg-white/90 text-ink backdrop-blur transition-colors hover:bg-ink hover:text-ivory"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white/90 text-ink backdrop-blur transition-colors hover:bg-ink hover:text-ivory"
                   aria-label="Next image"
                 >
                   ›
@@ -124,9 +124,9 @@ export function ProductDetail({ product }: Props) {
                   onClick={() => setActiveIndex(index)}
                   aria-label={`View image ${index + 1} of ${images.length}`}
                   aria-pressed={index === activeIndex}
-                  className={`block w-full border p-0.5 ${index === activeIndex ? "border-burgundy" : "border-line hover:border-ink"}`}
+                  className={`block w-full overflow-hidden rounded-2xl border-2 bg-white p-0.5 transition-colors ${index === activeIndex ? "border-burgundy" : "border-line hover:border-ink"}`}
                 >
-                  <div className="relative aspect-[4/5] w-full bg-ivory-deep">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-ivory-deep">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={image.image_url_thumb ?? image.image_url}
@@ -143,7 +143,7 @@ export function ProductDetail({ product }: Props) {
       </div>
 
       <div className="lg:pt-2">
-        <nav aria-label="Breadcrumb" className="text-[10px] uppercase tracking-[0.18em] text-muted">
+        <nav aria-label="Breadcrumb" className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted">
           <Link href="/shop" className="hover:text-burgundy">Shop</Link>
           <span aria-hidden="true"> / </span>
           {product.category ? (
@@ -153,9 +153,9 @@ export function ProductDetail({ product }: Props) {
           ) : null}
         </nav>
 
-        <h1 className="mt-4 font-display text-3xl leading-tight md:text-4xl">{product.name}</h1>
+        <h1 className="mt-4 font-display text-4xl leading-[1.05] md:text-5xl">{product.name}</h1>
         <div className="mt-4 flex flex-wrap items-center gap-4">
-          <Price kobo={product.price_kobo} className="font-display text-2xl" />
+          <Price kobo={product.price_kobo} className="rounded-full bg-ink px-4 py-1.5 font-display text-xl font-bold text-ivory" />
           <AvailabilityBadge status={product.availability} />
         </div>
 
@@ -180,7 +180,7 @@ export function ProductDetail({ product }: Props) {
                           setSelections((current) => ({ ...current, [kind]: value }));
                           setFeedback(null);
                         }}
-                        className={`min-w-11 border px-3 py-2 text-sm transition-colors ${
+                        className={`min-w-11 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                           selected ? "border-ink bg-ink text-ivory" : "border-line bg-white text-ink-soft hover:border-ink"
                         }`}
                       >
@@ -197,7 +197,7 @@ export function ProductDetail({ product }: Props) {
         <div className="mt-7 flex flex-wrap items-end gap-4">
           <div>
             <label htmlFor="quantity" className="label">Quantity</label>
-            <div className="flex items-center border border-line bg-white">
+            <div className="flex items-center overflow-hidden rounded-full border border-line bg-white">
               <button
                 type="button"
                 className="h-11 w-11 text-lg text-ink-soft hover:bg-ivory-deep disabled:opacity-40"
@@ -218,7 +218,7 @@ export function ProductDetail({ product }: Props) {
                   const next = Number.parseInt(event.target.value, 10);
                   setQuantity(Number.isFinite(next) ? Math.min(20, Math.max(1, next)) : 1);
                 }}
-                className="h-11 w-12 border-x border-line bg-transparent text-center text-sm tabular-nums focus:outline-none"
+                className="h-11 w-12 bg-transparent font-semibold text-center text-sm tabular-nums focus:outline-none"
               />
               <button
                 type="button"
@@ -248,7 +248,7 @@ export function ProductDetail({ product }: Props) {
         {feedback ? (
           <p
             role="status"
-            className={`mt-4 border px-4 py-3 text-sm ${
+            className={`mt-4 rounded-2xl border px-4 py-3 text-sm ${
               feedback.type === "success"
                 ? "border-success/30 bg-success/5 text-success"
                 : "border-danger/30 bg-danger/5 text-danger"
@@ -261,7 +261,7 @@ export function ProductDetail({ product }: Props) {
           </p>
         ) : null}
 
-        <dl className="mt-9 divide-y divide-line border-t border-line text-sm">
+        <dl className="mt-9 divide-y divide-line rounded-card border border-line bg-white px-5 text-sm">
           <div className="flex justify-between gap-6 py-3">
             <dt className="text-muted">Availability</dt>
             <dd className="text-right text-ink-soft">Confirmed personally by the seller after you order.</dd>
