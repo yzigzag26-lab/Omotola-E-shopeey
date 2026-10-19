@@ -55,12 +55,40 @@ function jwtClaims(token) {
   }
 }
 
+/** Parses engines.node (">=22.12.0 <25") into its bounds. Null when unreadable. */
+function nodeSupport() {
+  try {
+    const pkg = JSON.parse(readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+    const range = pkg.engines?.node ?? "";
+    const match = /^>=(\d+)(?:\.(\d+))?(?:\.(\d+))?\s+<(\d+)$/.exec(range);
+    if (!match) return null;
+    return {
+      range,
+      minMajor: Number(match[1]),
+      minMinor: Number(match[2] ?? 0),
+      maxExclusive: Number(match[4]),
+    };
+  } catch {
+    return null;
+  }
+}
+
 function checkNode() {
-  // package.json pins "22.x": Vercel reads it to choose the build image, and a
-  // floating ">=x" range would silently jump to a new major when one ships.
-  const major = Number(process.versions.node.split(".")[0]);
-  if (major === 22) ok("node version", `v${process.versions.node}`);
-  else warn("node version", `v${process.versions.node} — package.json pins 22.x; local runs on another major are not what Vercel builds`);
+  // package.json declares the window (">=22.12.0 <25"): 22 is the LTS default
+  // pinned by .nvmrc/.node-version, 24 is what hosted build images run, and
+  // nothing may float into a future major.
+  const [major, minor] = process.versions.node.split(".").map(Number);
+  const support = nodeSupport();
+  if (!support) {
+    warn("node version", `v${process.versions.node} — could not read a bounded engines.node from package.json`);
+    return;
+  }
+  const atLeastMinimum = major > support.minMajor || (major === support.minMajor && minor >= support.minMinor);
+  if (atLeastMinimum && major < support.maxExclusive) {
+    ok("node version", `v${process.versions.node} — within engines.node ${support.range}`);
+  } else {
+    warn("node version", `v${process.versions.node} — outside engines.node ${support.range}`);
+  }
 }
 
 function checkEnv() {

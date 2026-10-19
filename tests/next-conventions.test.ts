@@ -33,14 +33,29 @@ describe("Next.js 16 conventions", () => {
     expect(layout).toContain("unstable_rethrow(error)");
   });
 
-  it("pins a Node major instead of floating a range", () => {
+  it("declares a bounded Node support window that matches the pinned runtime", () => {
     const pkg = JSON.parse(read("package.json")) as { engines?: { node?: string } };
     const node = pkg.engines?.node ?? "";
-    // Vercel warns when "engines.node" is a range such as ">=20.9.0", because a
-    // new major would be adopted automatically.
-    expect(node).toMatch(/^\d+(\.\d+)?(\.x)?$/);
+    // "22.x" made npm warn (EBADENGINE) on the Node 24 build image, and a bare
+    // ">=22" would adopt Node 25 the moment it ships. The window is explicit:
+    // 22.12 is Vitest 5's floor, 24 is the hosted builder, 25 is excluded.
+    const match = /^>=(\d+)\.(\d+)\.0 <(\d+)$/.exec(node);
+    if (!match) {
+      throw new Error(`engines.node must be a bounded range such as ">=22.12.0 <25", got "${node}"`);
+    }
+    const minMajor = Number(match[1]);
+    const minMinor = Number(match[2]);
+    const maxExclusive = Number(match[3]);
+    expect(minMajor).toBe(22);
+    expect(minMinor).toBe(12);
+    expect(maxExclusive).toBe(25);
+
+    // Both pin files must agree and name a major inside the window.
     const nvmrc = read(".nvmrc").trim();
-    expect(nvmrc.split(".")[0]).toBe(node.split(".")[0]);
+    expect(read(".node-version").trim()).toBe(nvmrc);
+    const pinned = Number(nvmrc.split(".")[0]);
+    expect(pinned).toBeGreaterThanOrEqual(minMajor);
+    expect(pinned).toBeLessThan(maxExclusive);
   });
 
   it("keeps admin and API routes explicitly dynamic", () => {

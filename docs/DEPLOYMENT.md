@@ -1,8 +1,10 @@
 # Deployment
 
-The project targets Vercel (any Node 22 host that supports Next.js 16 works). `package.json` pins
-`engines.node` to `22.x` and `.nvmrc` to `22`, which is what Vercel reads to choose its build image;
-a floating range would silently jump to a new major when one ships.
+The project targets Vercel and any Node 22 or Node 24 host that supports Next.js 16. `.nvmrc` and
+`.node-version` pin the default runtime to Node 22 LTS, while `package.json` declares the supported
+window explicitly: `engines.node` is `">=22.12.0 <25"`. 22.12 is the first release supported by
+Vitest 5, Node 24 is what container build images ship (running `npm ci` there no longer logs
+`EBADENGINE`), and the `<25` cap stops a future major from being adopted silently.
 
 ## 1. Prerequisites
 
