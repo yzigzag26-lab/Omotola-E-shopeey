@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { getPublicSupabaseConfig } from "@/lib/env";
 
 /**
  * Refreshes Supabase auth cookies and performs a cheap gate on admin sub-routes.
@@ -12,11 +13,10 @@ import { createServerClient } from "@supabase/ssr";
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return response;
+  const config = getPublicSupabaseConfig();
+  if (!config) return response;
 
-  const supabase = createServerClient(url, key, {
+  const supabase = createServerClient(config.url, config.anonKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
