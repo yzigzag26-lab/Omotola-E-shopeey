@@ -1,4 +1,8 @@
 import type { Metadata, Viewport } from "next";
+// Self-hosted variable fonts (bundled at build time — no runtime font requests).
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource/instrument-serif/latin-italic.css";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";

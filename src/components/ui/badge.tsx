@@ -7,9 +7,9 @@ const LABELS: Record<AvailabilityStatus, string> = {
 };
 
 const STYLES: Record<AvailabilityStatus, string> = {
-  available: "border-success/30 text-success",
-  made_to_order: "border-gold/50 text-[#7a6136]",
-  temporarily_unavailable: "border-line text-muted",
+  available: "border-success/30 bg-white/90 text-success",
+  made_to_order: "border-gold/50 bg-white/90 text-[#7a6136]",
+  temporarily_unavailable: "border-line bg-white/90 text-muted",
 };
 
 export function AvailabilityBadge({ status, short = false }: { status: AvailabilityStatus; short?: boolean }) {
@@ -22,7 +22,7 @@ export function AvailabilityBadge({ status, short = false }: { status: Availabil
     : LABELS[status];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] ${STYLES[status]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] backdrop-blur ${STYLES[status]}`}
     >
       <span
         aria-hidden="true"

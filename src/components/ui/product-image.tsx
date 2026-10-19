@@ -54,11 +54,11 @@ export function ProductImage({
         />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center">
-          <span aria-hidden="true" className="h-px w-10 bg-gold/70" />
+          <span aria-hidden="true" className="h-1.5 w-10 rounded-full bg-gold/60" />
           <span className="font-display text-lg text-muted">
             {fallbackLabel ?? alt}
           </span>
-          <span className="text-[10px] uppercase tracking-[0.18em] text-muted/80">
+          <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted/80">
             Image coming soon
           </span>
         </div>

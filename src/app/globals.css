@@ -3,6 +3,8 @@
 /* ---------------------------------------------------------------------------
    Corazon Empire design tokens
    Ivory + ink + burgundy with restrained champagne-gold detail.
+   The palette is unchanged; the "youthful" refresh lives in type, radius,
+   motion and component shape (soft rounded rectangles + pills).
 --------------------------------------------------------------------------- */
 @theme {
   --color-ivory: #f8f4ed;
@@ -22,12 +24,20 @@
   --color-success: #2f6b4f;
   --color-danger: #9c2e35;
 
-  --font-display: Georgia, "Times New Roman", "Iowan Old Style", serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  /* Self-hosted via @fontsource (imported in app/layout.tsx) — no network at build. */
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
 
-  --radius-xs: 2px;
-  --radius-sm: 3px;
+  /* Soft, rounded-rectangle geometry. */
+  --radius-xs: 0.625rem;
+  --radius-sm: 0.875rem;
+  --radius-card: 1.5rem;
+  --radius-blob: 2rem;
   --tracking-widest: 0.22em;
+
+  --shadow-soft: 0 1px 2px rgb(20 17 15 / 0.04), 0 8px 24px -12px rgb(20 17 15 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(20 17 15 / 0.05), 0 22px 40px -18px rgb(76 20 32 / 0.28);
 }
 
 @layer base {
@@ -42,10 +52,15 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  h1, h2, h3, h4 {
+  h1, h2 {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
   ::selection {
     background: var(--color-burgundy);
@@ -74,47 +89,106 @@
     .shell { padding-inline: 2.5rem; }
   }
 
+  /* Eyebrows read as small pill "chips" — the signature Gen-Z detail. */
   .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     font-size: 0.6875rem;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-burgundy);
-    font-weight: 600;
+    font-weight: 700;
+    background: rgb(107 31 47 / 0.07);
+    border: 1px solid rgb(107 31 47 / 0.14);
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
   }
+  .eyebrow::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  /* Italic serif accent word inside bold grotesque headlines. */
+  .accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: #fff;
+    padding: 0.45rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+  .chip:hover { border-color: var(--color-ink); color: var(--color-ink); transform: translateY(-1px); }
+  .chip-active, .chip[aria-current] { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-ivory); }
+  .chip-active:hover, .chip[aria-current]:hover { color: var(--color-ivory); }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-burgundy);
+    background: rgb(107 31 47 / 0.06);
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+  .link-arrow:hover { background: var(--color-burgundy); color: #fff; }
+  .link-arrow::after { content: "→"; transition: transform 180ms ease; }
+  .link-arrow:hover::after { transform: translateX(3px); }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 2.875rem;
+    min-height: 3rem;
     padding: 0.75rem 1.6rem;
-    border-radius: var(--radius-xs);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease;
     cursor: pointer;
     border: 1px solid transparent;
     text-align: center;
   }
+  .btn:hover:not(:disabled) { transform: translateY(-1px); }
+  .btn:active:not(:disabled) { transform: translateY(0); }
   .btn:disabled { opacity: 0.55; cursor: not-allowed; }
   .btn-primary { background: var(--color-ink); color: var(--color-ivory); }
   .btn-primary:hover:not(:disabled) { background: var(--color-burgundy-deep); }
-  .btn-burgundy { background: var(--color-burgundy); color: #fff; }
+  .btn-burgundy { background: var(--color-burgundy); color: #fff; box-shadow: 0 10px 24px -12px rgb(107 31 47 / 0.7); }
   .btn-burgundy:hover:not(:disabled) { background: var(--color-burgundy-deep); }
   .btn-outline { border-color: var(--color-ink); color: var(--color-ink); background: transparent; }
   .btn-outline:hover:not(:disabled) { background: var(--color-ink); color: var(--color-ivory); }
-  .btn-quiet { border-color: var(--color-line); color: var(--color-ink-soft); background: transparent; }
+  .btn-quiet { border-color: var(--color-line); color: var(--color-ink-soft); background: #fff; }
   .btn-quiet:hover:not(:disabled) { border-color: var(--color-ink); }
-  .btn-sm { min-height: 2.25rem; padding: 0.4rem 0.9rem; font-size: 0.6875rem; }
+  .btn-glass { background: rgb(255 255 255 / 0.14); color: #fff; border-color: rgb(255 255 255 / 0.35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .btn-glass:hover:not(:disabled) { background: #fff; color: var(--color-ink); }
+  .btn-sm { min-height: 2.25rem; padding: 0.4rem 1rem; font-size: 0.75rem; }
 
   .field {
     width: 100%;
-    min-height: 2.75rem;
+    min-height: 2.875rem;
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-sm);
     background: #fff;
     padding: 0.625rem 0.75rem;
     font-size: 0.9375rem;
@@ -127,8 +201,8 @@
   .label {
     display: block;
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-ink-soft);
     margin-bottom: 0.4rem;
@@ -139,8 +213,19 @@
   .card {
     background: #fff;
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-card);
   }
+
+  /* Rounded-rectangle surface used across the storefront. */
+  .panel {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .lift { transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease; }
+  .lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
 
   .prose-luxe { color: var(--color-ink-soft); line-height: 1.75; font-size: 0.9375rem; }
   .prose-luxe h2 { font-size: 1.5rem; margin: 2rem 0 0.75rem; color: var(--color-ink); }
@@ -162,6 +247,18 @@
   animation: ce-marquee 38s linear infinite;
 }
 .marquee-viewport:hover .marquee-track { animation-play-state: paused; }
+.marquee-track-fast { animation-duration: 26s; }
+
+/* Gentle float for hero "sticker" badges. */
+@keyframes ce-float {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, -6deg)); }
+  50% { transform: translateY(-6px) rotate(var(--tilt, -6deg)); }
+}
+.sticker { animation: ce-float 5s ease-in-out infinite; }
+
+/* Slow spin for the circular text badge. */
+@keyframes ce-spin { to { transform: rotate(360deg); } }
+.spin-slow { animation: ce-spin 18s linear infinite; }
 
 /* Refined entrance for hero copy only — subtle, not decorative noise. */
 @keyframes ce-rise {
@@ -170,11 +267,12 @@
 }
 .rise { animation: ce-rise 700ms ease-out both; }
 .rise-late { animation: ce-rise 700ms 140ms ease-out both; }
+.rise-later { animation: ce-rise 700ms 280ms ease-out both; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
-  .rise, .rise-late { animation: none; }
+  .rise, .rise-late, .rise-later, .sticker, .spin-slow { animation: none; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

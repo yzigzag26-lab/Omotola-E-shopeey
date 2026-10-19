@@ -10,15 +10,15 @@ export function AnnouncementMarquee({ announcement }: { announcement: Announceme
 
   return (
     <div className="marquee-viewport overflow-hidden border-b border-ink/10 bg-ink text-ivory" role="region" aria-label="Store announcement">
-      <div className="relative flex overflow-hidden py-2">
+      <div className="relative flex overflow-hidden py-2.5">
         <p className="sr-only">{announcement.message}</p>
         <div aria-hidden="true" className="marquee-track">
           {[0, 1].map((copy) => (
             <span key={copy} className="flex shrink-0 items-center">
               {Array.from({ length: 3 }).map((_, index) => (
-                <span key={index} className="flex items-center whitespace-nowrap px-6 text-[11px] uppercase tracking-[0.22em] text-ivory/90">
+                <span key={index} className="flex items-center whitespace-nowrap px-6 text-[12px] font-semibold tracking-[0.02em] text-ivory/90">
                   {announcement.message}
-                  <span className="ml-6 h-1 w-1 rounded-full bg-gold" />
+                  <span className="ml-6 text-gold">✦</span>
                 </span>
               ))}
             </span>

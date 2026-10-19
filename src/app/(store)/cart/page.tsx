@@ -28,7 +28,9 @@ export default async function CartPage() {
     <div className="shell py-12 md:py-16">
       <header className="max-w-2xl">
         <p className="eyebrow">Your selection</p>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl">Shopping bag</h1>
+        <h1 className="mt-4 font-display text-5xl md:text-6xl">
+          Your <span className="accent text-burgundy">bag</span>
+        </h1>
       </header>
       <div className="mt-10">
         <CartView catalog={catalog} />

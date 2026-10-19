@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       <div className="mx-auto max-w-3xl">
         <p className="eyebrow">Policy</p>
         <h1 className="mt-4 font-display text-4xl md:text-5xl">Privacy</h1>
-        <p className="mt-4 border border-gold/40 bg-gold-soft/20 px-4 py-3 text-xs leading-relaxed text-ink-soft">
+        <p className="mt-5 rounded-2xl border border-gold/40 bg-gold-soft/20 px-4 py-3 text-xs leading-relaxed text-ink-soft">
           Draft policy for review before launch. It describes how this site actually works today and
           should be reviewed by the business owner (and, where appropriate, a legal adviser).
         </p>
