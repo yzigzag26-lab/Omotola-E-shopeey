@@ -42,6 +42,7 @@ arithmetic on money.
 
 | Layer | Choice |
 | --- | --- |
+| Runtime | Node.js 22 LTS (pinned by `.nvmrc`/`.node-version`; Node 24 build images supported) |
 | Framework | Next.js 16 (App Router, Server Actions, proxy) |
 | Language | TypeScript, `strict` + `noUncheckedIndexedAccess` |
 | Styling | Tailwind CSS v4 with brand tokens in `src/app/globals.css` |
@@ -55,7 +56,7 @@ arithmetic on money.
 ## Quick start
 
 ```bash
-# 1. Install
+# 1. Install on Node 22.12+ (nvm use picks up .nvmrc)
 npm install
 
 # 2. Configure
