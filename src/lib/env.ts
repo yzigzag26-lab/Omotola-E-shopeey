@@ -1,9 +1,11 @@
 /**
  * Environment access with actionable errors.
  *
- * Public variables are inlined by Next.js at build time, so they must be
- * referenced as literal `process.env.NEXT_PUBLIC_*` expressions.
- * Server secrets are only ever read inside server code.
+ * Next.js replaces literal NEXT_PUBLIC_* reads at build time. Server-side
+ * database access must prefer a dynamic lookup so hosts that inject env vars
+ * only when the app starts (rather than during next build) can still connect.
+ * Browser code must continue to use literal reads; it cannot access process.env
+ * at runtime. Server secrets are only ever read inside server code.
  */
 
 export class ConfigurationError extends Error {
@@ -15,9 +17,19 @@ export class ConfigurationError extends Error {
 
 export type PublicSupabaseConfig = { url: string; anonKey: string };
 
+// A computed property name is deliberately NOT replaced by Next's build-time
+// NEXT_PUBLIC_* substitution. Do not use this helper in client components.
+function runtimeEnv(name: string): string | undefined {
+  return process.env[name]?.trim() || undefined;
+}
+
+/** Server-side only; the browser client uses literal build-time env reads. */
 export function getPublicSupabaseConfig(): PublicSupabaseConfig | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  const url = runtimeEnv("NEXT_PUBLIC_SUPABASE_URL") ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = runtimeEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
+    ?? runtimeEnv("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY")
+    ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   if (!url || !anonKey) return null;
   return { url, anonKey };
 }
@@ -33,7 +45,7 @@ export function requirePublicSupabaseConfig(): PublicSupabaseConfig {
 }
 
 export function getSiteUrl(): string {
-  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const configured = runtimeEnv("NEXT_PUBLIC_SITE_URL") ?? process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (configured) return configured.replace(/\/$/, "");
   if (process.env.NEXT_PUBLIC_VERCEL_URL) return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   return "http://localhost:3000";

@@ -38,13 +38,33 @@ npm run build   # must pass locally first
 3. Add the environment variables above to Production (and Preview if desired).
 4. Deploy.
 
-**Other hosts**
+**Wasmer Edge / other hosts**
+
+1. In the host's app settings, set `NEXT_PUBLIC_SUPABASE_URL` to
+   `https://udbiogogslziguhtaigr.supabase.co` (note the **20-character** project ref) and
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY` to the project's **publishable** key from Supabase → Project
+   Settings → API Keys. Set `NEXT_PUBLIC_SITE_URL` to the actual HTTPS app origin, with no trailing
+   slash. Do not put the service-role key in a `NEXT_PUBLIC_` variable.
+2. Save and **redeploy**, so the host starts the new app with those variables. If the host can expose
+   them to the build too, do so: Next.js inlines public variables used in browser code and in static
+   metadata at build time. The server-side catalogue, admin and auth proxy now read the public
+   Supabase settings from the **runtime** environment first, so a build with no public variables
+   can still serve live data when they exist at runtime. No real key is committed to the repository.
+3. Confirm `/` and `/shop` render live catalogue data (not the error boundary or the offline demo
+   banner), then check `/admin` and a password-recovery redirect. `/about` alone does not prove the
+   database works. If data routes still fail, inspect host logs and verify the actual runtime env
+   names, URL and Supabase project status. Do not enable `DEMO_OFFLINE_FALLBACK` as a production fix.
+
+For a conventional Node host:
 
 ```bash
 npm ci
 npm run build
 npm start   # binds 0.0.0.0:3000; place behind TLS
 ```
+
+Environment settings in Wasmer are outside this Git repository; merging a PR does not configure the
+host or trigger a verified redeploy.
 
 ## 4. Post-deploy configuration
 

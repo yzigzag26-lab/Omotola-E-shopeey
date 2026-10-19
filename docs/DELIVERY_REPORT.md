@@ -8,12 +8,13 @@ The earlier version of this report listed live-database results as verified — 
 live project", RLS behaviour for anonymous and admin roles, a ₦42,000 order transaction with idempotency
 replay, and a confirmed administrator account. **Those checks were never executed and have been removed.**
 
-They could not have been: this environment cannot reach Supabase at all. Measured again while writing this
-revision, `udobiogoglslziguhtaigr.supabase.co` does not resolve (`curl` exit 6, "Could not resolve host")
-and `api.resend.com` fails the TLS handshake (`curl` exit 35). Only `github.com`, `api.github.com`,
-`registry.npmjs.org` and `files.pythonhosted.org` are reachable. **A service-role key does not change
-this** — the block is on the network path, not on credentials. The same claim in `README.md` ("were applied
-and verified through the Supabase management connection") was also untrue and has been corrected.
+They could not have been: direct access to Supabase was unavailable in that environment. The reported
+DNS failure (`curl` exit 6, "Could not resolve host") was measured against a **mistyped** project ref,
+`udobiogoglslziguhtaigr` (22 characters), so it did not establish the state of the real project.
+The correct ref is `udbiogogslziguhtaigr` (20 characters). The `api.resend.com` request failed the TLS
+handshake (`curl` exit 35). **A service-role key does not change network access.** The same claim in
+`README.md` ("were applied and verified through the Supabase management connection") was also untrue
+and has been corrected.
 
 The two lists below are kept strictly separate.
 
@@ -85,7 +86,7 @@ Run these from a machine that can reach Supabase. Each command's env vars stay i
 committed.
 
 ```bash
-export NEXT_PUBLIC_SUPABASE_URL=https://udobiogoglslziguhtaigr.supabase.co
+export NEXT_PUBLIC_SUPABASE_URL=https://udbiogogslziguhtaigr.supabase.co
 export SUPABASE_SERVICE_ROLE_KEY=...        # rotate first — see below
 export NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 
